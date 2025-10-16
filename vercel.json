@@ -1,0 +1,7 @@
+{
+  "rewrites": [
+    { "source": "/clima", "destination": "/api/clima" },
+    { "source": "/icone", "destination": "/api/icone" },
+    { "source": "/clima/html", "destination": "/api/html" }
+  ]
+}
