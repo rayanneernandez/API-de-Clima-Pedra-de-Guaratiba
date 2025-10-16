@@ -1,7 +1,15 @@
 {
   "rewrites": [
     { "source": "/clima", "destination": "/api/clima" },
-    { "source": "/icone", "destination": "/api/icone" },
-    { "source": "/clima/html", "destination": "/api/html" }
+    { "source": "/icone.png", "destination": "/api/icone" },
+    { "source": "/clima/html", "destination": "/api/html" },
+
+    { "source": "/guaratiba/clima", "destination": "/api/clima-guaratiba" },
+    { "source": "/guaratiba/icone.png", "destination": "/api/icone-guaratiba" },
+    { "source": "/guaratiba/html", "destination": "/api/html-guaratiba" },
+
+    { "source": "/inhauma/clima", "destination": "/api/clima-inhauma" },
+    { "source": "/inhauma/icone.png", "destination": "/api/icone-inhauma" },
+    { "source": "/inhauma/html", "destination": "/api/html-inhauma" }
   ]
 }
