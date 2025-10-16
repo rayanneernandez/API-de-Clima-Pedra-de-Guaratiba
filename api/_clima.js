@@ -10,9 +10,9 @@ function isExpired(ts) {
   return Date.now() - ts > TTL_MS;
 }
 
-export async function getClimaFor(q) {
+export async function getClimaFor(q, { force = false } = {}) {
   const item = cache.get(q);
-  if (!item || isExpired(item.ts)) {
+  if (force || !item || isExpired(item.ts)) {
     const { data } = await axios.get(
       `https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${q}&lang=pt`
     );
@@ -21,7 +21,9 @@ export async function getClimaFor(q) {
       cidade: data.location?.name || "",
       temperatura: Math.round(data.current.temp_c),
       descricao: data.current.condition.text,
-      icone: iconUrl
+      icone: iconUrl,
+      atualizado_em: data.current.last_updated, // ajuda a comparar com Google
+      localtime: data.location?.localtime
     };
     cache.set(q, { data: clima, ts: Date.now() });
     return clima;
@@ -29,8 +31,10 @@ export async function getClimaFor(q) {
   return item.data;
 }
 
-export async function getIconBufferFor(q) {
-  const clima = await getClimaFor(q);
+export async function getIconBufferFor(q, { force = false } = {}) {
+  // força atualização do clima antes de pegar o ícone
+  await getClimaFor(q, { force });
+  const clima = cache.get(q)?.data;
   const resp = await axios.get(clima.icone, { responseType: "arraybuffer" });
   const mime = resp.headers["content-type"] || "image/png";
   const buffer = Buffer.from(resp.data);

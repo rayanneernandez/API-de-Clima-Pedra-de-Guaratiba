@@ -13,7 +13,8 @@ export default async function handler(req, res) {
     setCors(res);
     return res.status(204).end();
   }
-  const { buffer, mime } = await getIconBufferFor(Q_GUARATIBA);
+  const force = req.query.nocache === "1" || req.query.force === "1";
+  const { buffer, mime } = await getIconBufferFor(Q_GUARATIBA, { force });
   setCors(res);
   res.setHeader("Content-Type", mime);
   res.setHeader("Content-Length", Buffer.isBuffer(buffer) ? buffer.length : Buffer.byteLength(buffer));

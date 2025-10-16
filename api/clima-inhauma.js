@@ -13,7 +13,8 @@ export default async function handler(req, res) {
     setCors(res);
     return res.status(204).end();
   }
-  const data = await getClimaFor(Q_INHAUMA);
+  const force = req.query.nocache === "1" || req.query.force === "1";
+  const data = await getClimaFor(Q_INHAUMA, { force });
   setCors(res);
   res.setHeader("Cache-Control", "no-store");
   res.status(200).json(data);
