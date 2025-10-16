@@ -14,7 +14,8 @@ export default async function handler(req, res) {
     return res.status(204).end();
   }
   const force = req.query.nocache === "1" || req.query.force === "1";
-  const data = await getClimaFor(Q_GUARATIBA, { force });
+  const metric = req.query.metric || "real"; // padrão: temperatura do ar
+  const data = await getClimaFor(Q_GUARATIBA, { force, metric, displayName: "Pedra de Guaratiba, Rio de Janeiro" });
   setCors(res);
   res.setHeader("Cache-Control", "no-store");
   res.status(200).json(data);
