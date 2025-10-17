@@ -19,6 +19,6 @@ export default async function handler(req, res) {
   res.setHeader("Content-Type", mime);
   res.setHeader("Content-Length", Buffer.isBuffer(buffer) ? buffer.length : Buffer.byteLength(buffer));
   res.setHeader("Content-Disposition", 'inline; filename="icone-guaratiba.png"');
-  res.setHeader("Cache-Control", "public, max-age=0, s-maxage=300, stale-while-revalidate=60");
+  res.setHeader("Cache-Control", "public, max-age=0, s-maxage=3600, stale-while-revalidate=60");
   res.status(200).send(buffer);
 }

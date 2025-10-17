@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API_KEY = process.env.WEATHER_API_KEY || "a540137ef0624555b57141528251610";
-const TTL_MS = 5 * 60 * 1000; // 5 minutos
+const TTL_MS = 60 * 60 * 1000; // 1 hora
 const cache = new Map();
 
 function isExpired(ts) {
