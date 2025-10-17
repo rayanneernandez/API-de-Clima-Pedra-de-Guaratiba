@@ -30,6 +30,7 @@ async function fetchBase(q) {
   return base;
 }
 
+// função: getClimaFor
 function buildResult(base, { metric = "real", displayName }) {
   const temperatura =
     metric === "feelslike" ? base.temperatura_aparente : base.temperatura_real;
@@ -45,7 +46,7 @@ function buildResult(base, { metric = "real", displayName }) {
   };
 }
 
-export async function getClimaFor(qParam, { force = false, metric = "real", displayName } = {}) {
+export async function getClimaFor(qParam, { force = false, metric = "feelslike", displayName } = {}) {
   const q = resolveQ(qParam);
   const item = cache.get(q);
   const base = force || !item || isExpired(item.ts) ? await fetchBase(q) : item.data;

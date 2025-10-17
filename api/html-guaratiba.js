@@ -8,12 +8,13 @@ function setCors(res) {
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 }
 
+// função: handler
 export default async function handler(req, res) {
   if (req.method === "OPTIONS") {
     setCors(res);
     return res.status(204).end();
   }
-  const { temperatura } = await getClimaFor(Q_GUARATIBA);
+  const { temperatura } = await getClimaFor(Q_GUARATIBA, { metric: "feelslike" });
   setCors(res);
   res.setHeader("Content-Type", "text/html; charset=utf-8");
   res.setHeader("Cache-Control", "no-store");
