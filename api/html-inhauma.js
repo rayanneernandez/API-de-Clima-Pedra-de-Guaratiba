@@ -15,7 +15,6 @@ export default async function handler(req, res) {
     return res.status(204).end();
   }
   const { temperatura } = await getClimaFor(Q_INHAUMA, { metric: "feelslike" });
-  setCors(res);
   res.setHeader("Content-Type", "text/html; charset=utf-8");
   res.setHeader("Cache-Control", "no-store");
   res.status(200).send(`<span>${temperatura}°C</span> <img src="/inhauma/icone.png" style="height:24px;vertical-align:middle;">`);

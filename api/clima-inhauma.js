@@ -14,7 +14,7 @@ export default async function handler(req, res) {
     return res.status(204).end();
   }
   const force = req.query.nocache === "1" || req.query.force === "1";
-  const metric = req.query.metric || "feelslike"; // padrão: sensação térmica
+  const metric = req.query.metric || "feelslike"; //sensação térmica
   const data = await getClimaFor(Q_INHAUMA, { force, metric, displayName: "Inhaúma, Rio de Janeiro" });
   setCors(res);
   res.setHeader("Cache-Control", "no-store");
